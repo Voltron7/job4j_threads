@@ -7,9 +7,9 @@ public class ConsoleProgress implements Runnable {
         char[] process = new char[] {'|', '/', '-', '\\'};
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                for (int index = 0; index < process.length; index++) {
+                for (char c : process) {
                     Thread.sleep(500);
-                    System.out.print("\r load: " + process[index]);
+                    System.out.print("\r load: " + c);
                 }
             }
         } catch (InterruptedException e) {
@@ -17,14 +17,10 @@ public class ConsoleProgress implements Runnable {
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            Thread progress = new Thread(new ConsoleProgress());
-            progress.start();
-            Thread.sleep(5000);
-            progress.interrupt();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+    public static void main(String[] args) throws InterruptedException {
+        Thread progress = new Thread(new ConsoleProgress());
+        progress.start();
+        Thread.sleep(5000);
+        progress.interrupt();
     }
 }
