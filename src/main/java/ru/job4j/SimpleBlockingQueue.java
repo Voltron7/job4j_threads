@@ -7,7 +7,7 @@ import java.util.Queue;
 
 @ThreadSafe
 public class SimpleBlockingQueue<T> {
-    private final int  limit;
+    private final int limit;
 
     @GuardedBy("this")
     private final Queue<T> queue = new LinkedList<>();
@@ -31,5 +31,9 @@ public class SimpleBlockingQueue<T> {
         T result = queue.poll();
         notifyAll();
         return result;
+    }
+
+    public synchronized boolean isEmpty() {
+        return queue.isEmpty();
     }
 }
