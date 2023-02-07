@@ -6,16 +6,24 @@ import static org.assertj.core.api.Assertions.*;
 class SimpleBlockingQueueTest {
 
     @Test
-    void whenOfferFiveElementsAndPollFourElements() {
+    void whenOfferFiveElementsAndPollFourElements() throws InterruptedException {
         var queue = new SimpleBlockingQueue<Integer>(2);
         var producer = new Thread(() -> {
             for (int i = 0; i < 5; i++) {
-                queue.offer(i);
+                try {
+                    queue.offer(i);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         });
         var consumer = new Thread(() -> {
             for (int i = 0; i < 4; i++) {
-                queue.poll();
+                try {
+                    queue.poll();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         });
         producer.start();
@@ -30,21 +38,33 @@ class SimpleBlockingQueueTest {
     }
 
     @Test
-    public void when2ConsumersAnd1Producer() {
+    public void when2ConsumersAnd1Producer() throws InterruptedException {
         var queue = new SimpleBlockingQueue<>(2);
         var producer = new Thread(() -> {
             for (int i = 0; i < 10; i++) {
-                queue.offer(i);
+                try {
+                    queue.offer(i);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         });
         var consumer = new Thread(() -> {
             for (int i = 0; i < 4; i++) {
-                queue.poll();
+                try {
+                    queue.poll();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         });
         var consumer1 = new Thread(() -> {
             for (int i = 0; i < 4; i++) {
-                queue.poll();
+                try {
+                    queue.poll();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         });
         producer.start();
