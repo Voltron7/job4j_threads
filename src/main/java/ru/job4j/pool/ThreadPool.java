@@ -13,7 +13,7 @@ public class ThreadPool {
 
     public ThreadPool() {
         for (int i = 0; i < size; i++) {
-            threads.add(new Thread(() -> {
+            Thread thread = new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
                         Runnable runnable = tasks.poll();
@@ -22,11 +22,9 @@ public class ThreadPool {
                         Thread.currentThread().interrupt();
                     }
                 }
-            }
-            ));
-        }
-        for (Thread thread : threads) {
+            });
             thread.start();
+            threads.add(thread);
         }
     }
 
