@@ -28,9 +28,7 @@ public class ParallelIndexSearching<T> extends RecursiveTask<Integer> {
                 array, mid + 1, to, elementToFind);
         firstHalfSearcher.fork();
         secondHalfSearcher.fork();
-        int firstFound = firstHalfSearcher.join();
-        int secondFound = secondHalfSearcher.join();
-        return Math.max(firstFound, secondFound);
+        return Math.max(firstHalfSearcher.join(), secondHalfSearcher.join());
     }
 
     public int linearSearchingOfIndex() {
