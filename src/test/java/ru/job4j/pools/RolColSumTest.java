@@ -11,8 +11,8 @@ class RolColSumTest {
         int[][] matrix = {{1, 2, 3},
                           {4, 5, 6},
                           {7, 8, 9}};
-        assertThat(RolColSum.sumByIndex(matrix, 1).getRowSum()).isEqualTo(15);
-        assertThat(RolColSum.sumByIndex(matrix, 1).getColSum()).isEqualTo(15);
+        Sums expected = new Sums(15, 15);
+        assertThat(RolColSum.sumByIndex(matrix, 1)).isEqualTo(expected);
     }
 
     @Test
@@ -20,9 +20,8 @@ class RolColSumTest {
         int[][] matrix = {{1, 2, 3},
                           {4, 5, 6},
                           {7, 8, 9}};
-        assertThat(RolColSum.sum(matrix).length).isEqualTo(3);
-        assertThat(RolColSum.sum(matrix)[2].getRowSum()).isEqualTo(24);
-        assertThat(RolColSum.sum(matrix)[2].getColSum()).isEqualTo(18);
+        Sums expected = new Sums(24, 18);
+        assertThat(RolColSum.sum(matrix)[2]).isEqualTo(expected);
     }
 
     @Test
@@ -30,8 +29,7 @@ class RolColSumTest {
         int[][] matrix = {{1, 2, 3},
                           {4, 5, 6},
                           {7, 8, 9}};
-        assertThat(RolColSum.asyncSum(matrix).length).isEqualTo(3);
-        assertThat(RolColSum.asyncSum(matrix)[0].getRowSum()).isEqualTo(6);
-        assertThat(RolColSum.asyncSum(matrix)[0].getColSum()).isEqualTo(12);
+        Sums expected = new Sums(6, 12);
+        assertThat(RolColSum.asyncSum(matrix)[0]).isEqualTo(expected);
     }
 }
